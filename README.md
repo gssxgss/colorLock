@@ -1,5 +1,5 @@
-[pen][http://codepen.io/gssxgss/pen/XmOpbv]
-[codepen][http://codepen.io]
+[pen](http://codepen.io/gssxgss/pen/XmOpbv)
+[codepen](http://codepen.io)
 
 # Color Lock
 
