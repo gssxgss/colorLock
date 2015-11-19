@@ -1,0 +1,145 @@
+$colors: #F44336 #E91E63 #9C27B0 #673AB7 #3F51B5 #2196F3 #009688 #8BC34A #FFC107 #FF9800
+$colors-light: #EF5350 #EC407A #AB47BC #7E57C2 #5C6BC0 #42A5F5 #26A69A #9CCC65 #FFCA28 #FFA726
+
+=color($i, $hover: false)
+  background: nth($colors, $i + 1)
+  @if $hover
+    &:hover
+      background: nth($colors-light, $i + 1)
+      z-index: 10
+
+html
+  box-sizing: border-box
+
+*,
+*:after,
+*:before
+  box-sizing: inherit
+
+body
+  margin: 0
+  display: flex
+  align-items: center
+  width: 100vw
+  height: 100vh
+  background: radial-gradient(ellipse farthest-side at center, hsl(0, 0%, 100%), hsl(0, 0%, 80%))
+  color: hsl(0, 0%, 70%)
+  font-family: monaco, monospace
+
+.lock
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  background: hsl(0, 0%, 20%)
+  box-shadow: 0 0 30px hsl(0, 0%, 18%) inset
+
+.user-input-wrapper
+  width: 300px
+  margin-right: 50px
+
+.msg-wrapper
+  position: relative
+  font-size: 1em
+  height: 2em
+  > .msg
+    position: absolute
+    top: 0
+    left: 0
+    margin: 0
+    overflow: hidden
+    white-space: nowrap
+    transition: opacity 0.5s
+    &.hide
+      opacity: 0
+
+.user-input
+  display: flex
+  justify-content: center
+  height: 60px
+  border-radius: 4px
+  background: hsl(0, 0%, 15%)
+  box-shadow: 0 5px 10px hsla(0, 0%, 0%, 0.1) inset
+  overflow: hidden
+  > .code
+    flex: 1
+    box-shadow: -4px 0 10px -4px hsla(0, 0%, 0%, 0.2)
+    transition: flex 0.3s
+    @for $i from 0 to 10
+      &.code#{$i}
+        +color($i)
+
+.hint
+  margin: 1em 0 0
+  text-align: right
+  opacity: 0
+  transition: all 0.3s
+  pointer-events: none
+  &.success
+    color: #9CCC65
+    opacity: 1
+  &.fail
+    color: #EF5350
+    opacity: 1
+
+.palette-wrapper
+  position: relative
+  display: flex
+  justify-content: center
+  cursor: pointer
+  &.success
+    animation: rotation 1s forwards
+
+@keyframes rotation
+  50%
+    -webkit-filter: grayscale(100%)
+    filter: grayscale(100%)
+  100%
+    -webkit-filter: grayscale(0%)
+    filter: grayscale(0%)
+    transform: rotate(360deg)
+
+.palette
+  position: relative
+  overflow: hidden
+  width: 300px
+  height: 300px
+  padding: 0
+  border-radius: 50%
+  list-style: none
+
+.color
+  position: absolute
+  top: 50%
+  left: 50%
+  background: #555
+  width: 200px
+  height: 200px
+  transform-origin: 0% 0%
+  box-shadow: 0 0 20px hsla(0, 0%, 0%, 0.2)
+  transition: all 0.3s
+  @for $i from 0 to 10
+    &.n#{$i}
+      +color($i, true)
+      transform: rotate($i * 36deg) skewx(54deg)
+
+.btn
+  $size: 100px
+  position: absolute
+  z-index: 10
+  top: 50%
+  left: 50%
+  width: $size
+  height: $size
+  margin: #{- $size / 2} 0 0 #{- $size / 2}
+  background: hsl(0, 0%, 20%)
+  border-radius: 50%
+  box-shadow: 0 0 20px -5px hsla(0, 0%, 0%, 0.2)
+  line-height: $size
+  text-align: center
+  transition: all 0.5s
+  &:hover
+    transform: scale(2.5)
+  &.hide
+    visibility: hidden
+    opacity: 0

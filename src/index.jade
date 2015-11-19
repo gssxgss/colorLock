@@ -1,0 +1,29 @@
+doctype
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title Dyno
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel="stylesheet", href="stylesheets/main.css")
+  body
+    .lock
+      .user-input-wrapper
+        .msg-wrapper
+          p#msg_register.msg init your color lock (4~8 colors)
+          p#msg_input.msg.hide enter your color key
+        #user_input.user-input
+          //.code.code0
+        p#hint.hint hint
+
+      #palette_wrapper.palette-wrapper
+        - var n = 0
+        ol#palette.palette
+          while n < 10
+            li(class="color n#{n}" data-key=n)
+            - n++
+        #btn_register.btn REGISTER
+        #btn_input.btn.hide UNLOCK
+
+      script(src="scripts/app.js")
